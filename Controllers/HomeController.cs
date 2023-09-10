@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Line_bot.MainBusiness.Model;
 using Line_bot.Models;
 using Line_bot.MainBusiness;
+using System.IO;
 
 namespace Userinfos.Controllers
 {
@@ -40,7 +41,7 @@ namespace Userinfos.Controllers
                 Talk normalTalk = new Talk();
                 normalTalk.NormalTalk(inputText, info, input, id);
                 outputText = normalTalk.GetResult();
-                
+
             }
             else if (info.State == States.GuessPlayer.ToString())
             {
@@ -90,15 +91,33 @@ namespace Userinfos.Controllers
             Reply(output);
             return Ok();
         }
+
+
+        public class Rootobject
+        {
+            public string Authorization { get; set; }
+        }
+
+
+        public Rootobject LineKey()
+        {
+            StreamReader r = new StreamReader("key.json");
+            string jsonString = r.ReadToEnd();
+            Rootobject m = JsonConvert.DeserializeObject<Rootobject>(jsonString);
+            return m;
+        }
+
+
         private void Reply(Output output)
         {
+            Rootobject lineKey = LineKey();
             HttpClient Client = new HttpClient();
             var request = new HttpRequestMessage()
             {
                 Method = HttpMethod.Post,
                 RequestUri = new Uri("https://api.line.me/v2/bot/message/reply"),
                 Headers = {
-                        { HttpRequestHeader.Authorization.ToString(), "Bearer PXRHLnm9Ci6NpW87H0h3X8onCCKMCRe5n62osYe0tjrk4tcap7NyKbS9EvjHGA72J+Qykz1RKUKZvFiSGQN3snGZRQGMUdeJ0TF4GSXyTTneBFcbQiVCkkwdu7GRxqQT8iAlJ9pFZedDWn/zU0SgngdB04t89/1O/w1cDnyilFU=" },
+                        { HttpRequestHeader.Authorization.ToString(), lineKey.Authorization},
                         { HttpRequestHeader.ContentType.ToString(), "application/json" }
                 },
                 Content = new StringContent(JsonConvert.SerializeObject(output), Encoding.UTF8, "application/json")
