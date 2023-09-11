@@ -49,7 +49,6 @@ namespace Userinfos.Controllers
                 if (isNumber)
                 {
                     //猜數字的方法 
-                    //var 偷懶用的，後面型態是甚麼var就是甚麼
                     Game guessGame = new Game(num, info);
                     guessGame.PlayGuessGame();
                     outputText = guessGame.GetResult();
@@ -87,42 +86,21 @@ namespace Userinfos.Controllers
                     }
                 }
             };
-
-            Reply(output);
+            
+            LineKey key = new LineKey();
+            key.Reply(output);
             return Ok();
         }
 
-
-        public class Rootobject
-        {
-            public string Authorization { get; set; }
-        }
-
-
-        public Rootobject LineKey()
-        {
-            StreamReader r = new StreamReader("key.json");
-            string jsonString = r.ReadToEnd();
-            Rootobject m = JsonConvert.DeserializeObject<Rootobject>(jsonString);
-            return m;
-        }
+        //每個class都抽出去外面
+        //controller太多東西
+        //技術債-平常不整理架構
+        
 
 
-        private void Reply(Output output)
-        {
-            Rootobject lineKey = LineKey();
-            HttpClient Client = new HttpClient();
-            var request = new HttpRequestMessage()
-            {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri("https://api.line.me/v2/bot/message/reply"),
-                Headers = {
-                        { HttpRequestHeader.Authorization.ToString(), lineKey.Authorization},
-                        { HttpRequestHeader.ContentType.ToString(), "application/json" }
-                },
-                Content = new StringContent(JsonConvert.SerializeObject(output), Encoding.UTF8, "application/json")
-            };
-            var response = Client.SendAsync(request);
-        }
+       
+
+
+        
     }
 }

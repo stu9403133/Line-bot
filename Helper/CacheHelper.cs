@@ -47,6 +47,5 @@ namespace Line_bot.Helper
             double durningTime = (DateTime.Now - info.UpdateTime).TotalSeconds;
             return durningTime >= 5;
         }
-
     }
 }

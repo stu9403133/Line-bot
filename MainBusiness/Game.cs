@@ -6,9 +6,9 @@
         private string Hint { get; set; }
         private UserInfo Info { get; set; }
 
-        //很適合用construct，不然每次輸入答案不一樣，一開始給一個職就不動了
+        //很適合用construct，不然每次輸入答案不一樣，一開始給一個值就不動了
         //封閉開放原則，程式與程式之間不要有相連性，好管理
-        //此為建構子名稱與class依樣就是建構子
+        //此為建構子名稱與class一樣就是建構子
         public Game(int inputNum, UserInfo info)
         {
             this.InputNum = inputNum;
