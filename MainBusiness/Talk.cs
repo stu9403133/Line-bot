@@ -95,7 +95,7 @@ namespace Line_bot.MainBusiness
             }
             if (inputText != "玩遊戲")
             {
-                CacheHelper.Clear(id);
+                CacheHelper.Clear(id, info);
             }
 
         }

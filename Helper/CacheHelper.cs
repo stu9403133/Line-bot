@@ -38,7 +38,7 @@ namespace Line_bot.Helper
                 Userinfos.Add(id, info);
             }
         }
-        public static void Clear(string id)
+        public static void Clear(string id, UserInfo info)
         {
             Userinfos.Remove(id);
         }
@@ -47,6 +47,5 @@ namespace Line_bot.Helper
             double durningTime = (DateTime.Now - info.UpdateTime).TotalSeconds;
             return durningTime >= 5;
         }
-
     }
 }
