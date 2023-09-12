@@ -54,24 +54,20 @@ namespace Userinfos.Controllers
                     outputText = guessGame.GetResult();
 
                     //這裡放快取重置的function
-
-                    if (outputText == "冰狗~答對了")
-                    {
-                        //塞回去用的儲存回去。
-                        CacheHelper.Clear(id);
-                    }
-                    CacheHelper.Set(id, info);
+                    guessGame.CorrectAnsReset(id, info, outputText);
                 }
                 else
                 {
                     outputText = "請輸入數字";
                     CacheHelper.Set(id, info);
+
                 }
             }
             else if (info.State == States.TimeOut.ToString())
             {
                 outputText = "忘記了ㄏㄏ請重新輸入";
-                CacheHelper.Clear(id);
+                CacheHelper.Clear(id, info);
+                
             }
 
             output = new Output()
@@ -86,21 +82,10 @@ namespace Userinfos.Controllers
                     }
                 }
             };
-            
+
             LineKey key = new LineKey();
             key.Reply(output);
             return Ok();
         }
-
-        //每個class都抽出去外面
-        //controller太多東西
-        //技術債-平常不整理架構
-        
-
-
-       
-
-
-        
     }
 }

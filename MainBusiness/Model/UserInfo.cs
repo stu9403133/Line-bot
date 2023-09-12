@@ -24,7 +24,7 @@ namespace Line_bot.Models
         {
             this.State = States.Init.ToString();
             Random guessAns = new Random();
-            this.Ans = guessAns.Next(0, 100);
+            this.Ans = guessAns.Next(0, 2);
         }
     }
 }

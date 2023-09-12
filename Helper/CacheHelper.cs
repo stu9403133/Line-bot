@@ -19,12 +19,12 @@ namespace Line_bot.Helper
                 info = new UserInfo();
                 Set(id, info);
             }
-            else if (IsTimeOut(info))
+            /*else if (IsTimeOut(info))
             {
                 info = new UserInfo();
                 info.State = States.TimeOut.ToString();
                 Set(id, info);
-            }
+            }*/
             return info;
         }
         public static void Set(string id, UserInfo info)
@@ -38,14 +38,14 @@ namespace Line_bot.Helper
                 Userinfos.Add(id, info);
             }
         }
-        public static void Clear(string id)
+        public static void Clear(string id, UserInfo info)
         {
             Userinfos.Remove(id);
         }
-        private static bool IsTimeOut(UserInfo info)
+        /*private static bool IsTimeOut(UserInfo info)
         {
             double durningTime = (DateTime.Now - info.UpdateTime).TotalSeconds;
             return durningTime >= 5;
-        }
+        }*/
     }
 }
